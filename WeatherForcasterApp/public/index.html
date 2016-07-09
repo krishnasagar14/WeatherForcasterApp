@@ -1,0 +1,95 @@
+<!doctype html>
+<html class="no-js ui-mobile-rendering" lang="en">
+    <head>
+        <meta name="charset" content="UTF-8">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Cache-Control" content="no-cache">
+        <meta http-equiv="Expires" content="-1">
+
+        <title>FORCAST APPLICATION</title>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 bg">
+                </div>
+            </div>
+        </div>
+
+        <script>
+            (function(ua, w, d) {
+                var filesToInclude,
+                AyncMethods = {
+                    loadCSS: function(url, callback) {
+                        var link = d.createElement("link");
+                        link.type = "text/css";
+                        link.rel = "stylesheet";
+                        link.href = url;
+                        d.getElementsByTagName("head")[0].appendChild(link);
+                        if(callback) {
+                            callback();
+                        }
+                    },
+                    loadJS: function(file, callback) {
+                        var script = d.createElement("script");
+                        script.type = "text/javascript";
+                        if (script.readyState) {  // IE
+                            script.onreadystatechange = function() {
+                                if (script.readyState == "loaded" || script.readyState == "complete") {
+                                    script.onreadystatechange = null;
+                                    callback();
+                                }
+                            };
+                        } else {  // Other Browsers
+                            script.onload = function() {
+                            callback();
+                            };
+                        }
+                        if(((typeof file).toLowerCase()) === "object" && file["data-main"] !== undefined) {
+                            script.setAttribute("data-main", file["data-main"]);
+                            script.async = true;
+                            script.src = file.src;
+                        } else {
+                            script.src = file;
+                        }
+                        d.getElementsByTagName("head")[0].appendChild(script);
+                    },
+                    loadFiles: function(obj, callback) {
+                        var self = this;
+                        self.loadCSS(obj["css"], function() {
+                            if(obj["js"]) {
+                                self.loadJS(obj["js"], callback);
+                        }
+                        });
+                        
+                    }
+                };
+                filesToInclude = {
+                "css": "css/desktop.css",
+                "js": { "data-main": "js/app/config/config.js", "src": "js/libs/require.js" },
+                "init": "js/app/init/DesktopInit.js",
+                };
+                AyncMethods.loadFiles(filesToInclude, function() {
+                    if(window.require) {
+                      require([filesToInclude["init"]]);
+                    }
+              });
+            })(navigator.userAgent || navigator.vendor, window, document);
+
+        </script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyAcM_QQBY75rR1CW5aFMcu5ASCfUacX0zU"></script>
+        
+        <script type="text/javascript" src="js/libs/jquery.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+        <script type='text/javascript' src='js/libs/jquery-ui.min.js'></script>
+
+        <link rel="stylesheet" type="text/css" href="js/jQuery-Tags-Input/jquery.tagsinput.css" />
+        <script src="js/jQuery-Tags-Input/jquery.tagsinput.js"></script>
+        <script>
+            $('#tags').tagsInput();
+        </script>
+
+    </head>
+    <body>
+    </body>
+</html>

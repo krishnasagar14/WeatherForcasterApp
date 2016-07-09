@@ -1,0 +1,37 @@
+<label title="Click" class="cityName"><%= data.city.name %>, <%= data.city.country %></label>
+<div id="CityTB">
+<div class="CityWeatherData">
+    <div class="firstColumn"><span class="TypeSpan"> Info&#8594;</span><span class="DateSpan">Date&#8595;</span></div>
+    <div class="secondColumn" id="TempHeading"> Temp &#176;C </div>
+    <div class="thirdColumn" id="weatherHeading"> Weather Condition </div>
+</div>
+<ul class="VariableList">
+    <%_.each(data.list,function(dayData){%>
+        <li>
+            <%
+                var dateString = "";
+                var months = ['Jan','Feb','Mar','April','May','June','July','Aug','Sept','Oct','Nov','Dec'];
+                var weekdays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+                var serverDate = dayData.dt;
+                var parsedDate = new Date(serverDate * 1000);
+                dateString = weekdays[parsedDate.getDay()]+", "+ parsedDate.getDate()+" "+ months[parsedDate.getMonth()] +" "+ parsedDate.getFullYear();
+            %>
+            <div class="firstColumn"><%= dateString %></div>
+            <div class="secondColumn">
+                <div class="SubMenu"><label>Morn: </label><%= (dayData.temp.morn - 273.15).toFixed(2) %></div>
+                <div class="SubMenu"><label>Day: </label><%= (dayData.temp.day - 273.15).toFixed(2) %></div>
+                <div class="SubMenu"><label>Eve: </label><%= (dayData.temp.eve - 273.15).toFixed(2) %></div>
+                <div class="SubMenu"><label>Night: </label><%= (dayData.temp.night - 273.15).toFixed(2) %></div>
+                <div class="SubMenu"><label>Min: </label><%= (dayData.temp.min - 273.15).toFixed(2) %></div>
+                <div class="SubMenu"><label>Max: </label><%= (dayData.temp.max - 273.15).toFixed(2) %></div>
+            </div>
+            <div class="thirdColumn"><%= dayData.weather[0].main%> (<%= dayData.weather[0].description%>)</div>
+        </li>
+    <%});%>
+</ul>
+</div>
+<script>
+$(".cityName").click(function() {
+    $(this).next().css('display','block');
+});
+</script>
