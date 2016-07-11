@@ -9,3 +9,6 @@ How to Run:
 2. run command on terminal : node server.js
 3. App running on port 5888.
 4. Load application on 127.0.0.1:5888.
+
+reference:
+https://github.com/BoilerplateMVC/Backbone-Require-Boilerplate
