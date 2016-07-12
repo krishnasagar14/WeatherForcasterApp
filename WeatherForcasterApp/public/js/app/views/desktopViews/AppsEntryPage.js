@@ -37,7 +37,10 @@ define([
             }
         },
         showCityData: function () {
-            var city_names = $(".tag span").text().split(/\s+/)
+            var city_names = [];
+            $(".tag span").each(function(){
+                city_names.push($(this).text());
+            });
             var that = this;
             $(".weatherInfoContainer").html("");
             if($(".tagsinput > .tag").length === 0){
@@ -46,7 +49,6 @@ define([
                 $(".CitySelectionErr").hide();
             }
             this.cityData = new city();
-            city_names.pop();
             $.each(city_names,function(i,city_name){
                 that.cityData.fetch({
                     url: "http://api.openweathermap.org/data/2.5/forecast/daily?q="+ city_name +"&cnt=14&APPID=125bd786b16ae0a3dc9e129385a8c591",
